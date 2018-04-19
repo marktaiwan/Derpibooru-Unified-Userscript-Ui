@@ -7,7 +7,11 @@ It abstracts away the hassle of dealing with HTML elements, event listeners, and
 Settings for the various userscripts that implements this library will be placed in the [Content Settings](https://derpibooru.org/settings) page of Derpibooru. This provides a single, logical, out-of-the-way location for users to find the settings for their installed scripts.
 
 ## Quick Start Guide
-To begin, register your userscript with `ConfigManager`.
+First, add Derpi4U to your userscript with
+````
+// @require  https://raw.githubusercontent.com/marktaiwan/Derpibooru-Unified-Userscript-Ui/master/derpi-four-u.js
+````
+Now register your userscript with `ConfigManager`.
 ```` javascript
 var config = ConfigManager(
     'Name of Your Script',
@@ -16,6 +20,7 @@ var config = ConfigManager(
 );
 ````
 This returns a `ConfigObject` with which you can manipulate setting entries for your script.
+
 Next, register settings you want to present to your users with calls to `config.registerSetting`:
 ```` javascript
 // register a setting entry
@@ -28,6 +33,7 @@ config.registerSetting({
 });
 ````
 Each method call registers one setting entry. Each entry are presented on the Content Settings page in the order they are registered in. For a list of available entry types, consult [this table](#entry_type).
+
 To retrieve the entry, simply call `config.getEntry` with the corresponding key:
 ```` javascript
 // retrieve a stored setting entry
@@ -46,29 +52,35 @@ If your script only runs on specific pages of Derpibooru, remember to add the fo
 A `ConfigObject` is returned by calls to `ConfigManager` or `ConfigObject.addFieldset`. It is used to add/read/change/remove user setting entries managed by Derpi4U.
 ### `ConfigObject.pageElement`
 On the Settings page, this property corresponds to either the container element used to encapsulate all the input fields and display elements of your script when returned by `ConfigManager`, or the `<fieldset>` element when returned by `ConfigObject.addFieldset`.
+
 When not on the Content Settings page, the property is set to `null`.
 ### `ConfigObject.registerSetting(entryConfig)`
 Registers a setting entry to be used in your script. If on the Content Settings page, displays the input fields in your script container.
+
 Returns the HTML element of the entry container, regardless if it's inserted or not.
 #### Parameters
 *entryConfig* is an object that contains:
  - `title`:  A `String` that is displayed next to the input element.
  - `key`:  A `String` used to identify the setting entry, and must be unique within your userscript.
+   
    The key should follow the JavaScript naming restrictions. It must begin with an ASCII letter (upper or lower case) or an underscore (`_`) character.
     Subsequent characters must be letters, numbers, hyphens (`-`) or underscores (`_`).
  - `description`:  [Optional] A `String` that is displayed below the entry title and input element pair
  - `defaultValue`: The default value associated with the setting entry.
  - <a name="entry_type" href="#entry_type">`type`</a>: A `String` of either `checkbox`, `text`, `number`, `radio`, or `dropdown`.
+   
    The value of `type` determines which input element to use on the Content Settings panel, and the data type used to store it:
-   | Type             | Stored Data Type   | HTML Element                                    |
-   | -------------- | ---------------------- | ------------------------------------------ |
-   | `checkbox` | Boolean                   | `<input>` with `type="checkbox"` |
-   | `text`         | String                       | `<input>` with `type="text"`         |
-   | `number`     | Number                   | `<input>` with `type="number"`     |
-   | `radio`       | String                       | `<input>` with `type="radio"`       |
-   | `dropdown` | String                       | `<select>`                                           |
-
+   
+   | Type       | Stored Data Type | HTML Element                     |
+   | ---------- | ---------------- | -------------------------------- |
+   | `checkbox` | Boolean          | `<input>` with `type="checkbox"` |
+   | `text`     | String           | `<input>` with `type="text"`     |
+   | `number`   | Number           | `<input>` with `type="number"`   |
+   | `radio`    | String           | `<input>` with `type="radio"`    |
+   | `dropdown` | String           | `<select>`                       |
+   
  - `selections`: Required when the `type` property is of `radio` or `dropdown`.
+   
    It should contain an `Array` of `{text:String, value:String}` objects used to define user selectable options in the dropdown list or radio button group.
    ```` javascript
    config.registerSetting({
