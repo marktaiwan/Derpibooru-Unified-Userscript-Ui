@@ -1,6 +1,18 @@
-/**
- *  Derpibooru Unified Userscript UI Utility,
- */
+// ==UserScript==
+// @namespace     https://github.com/marktaiwan/
+// @exclude       *
+// @author        Marker
+
+// ==UserLibrary==
+// @name          Derpibooru Unified Userscript UI Utility
+// @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
+// @license       MIT
+// @version       1.0.1
+
+// ==/UserScript==
+
+// ==/UserLibrary==
+
 
 // Workaround for:
 //    Error parsing header X-XSS-Protection: 1; mode=block; report=https://derpibooru.report-uri.com/r/d/xss/enforce: reporting URL
