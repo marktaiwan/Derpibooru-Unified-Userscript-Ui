@@ -364,8 +364,12 @@ var ConfigManager = (function () {
     settingTable.querySelector('.block__tab:last-of-type').insertAdjacentElement('afterend', ele);
 
     // Auto focus on tab if link is of the format "https://derpibooru.org/settings?active_tab=userscript"
-    if (getQueryVariable('active_tab') !== undefined) {
-      document.querySelector(`[data-click-tab=${getQueryVariable('active_tab')}]`).click();
+    try {
+      if (getQueryVariable('active_tab') !== undefined) {
+        let tab = document.querySelector(`[data-click-tab=${getQueryVariable('active_tab')}]`);
+        if (tab) tab.click();
+      }
+    } catch (e) {
     }
     return ele;
   }
