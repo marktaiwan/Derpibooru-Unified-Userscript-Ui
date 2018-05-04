@@ -7,7 +7,7 @@
 // @name          Derpibooru Unified Userscript UI Utility
 // @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
 // @license       MIT
-// @version       1.0.1
+// @version       1.0.2
 
 // ==/UserScript==
 
@@ -26,7 +26,7 @@ if (window.self !== window.top) return;  // Exit when inside iframe
 var ConfigManager = (function () {
   'use strict';
 
-  const VERSION = '1.0.1';
+  const VERSION = '1.0.2';
   const LIBRARY_NAME = 'Derpibooru Unified Userscript UI Utility';
   const LIBRARY_ID = 'derpi_four_u';
   const SETTINGS_PAGE = (document.querySelector('#js-setting-table') !== null);
@@ -238,7 +238,7 @@ var ConfigManager = (function () {
     for (const container of scriptContainers) {
       const scriptId = container.dataset.scriptId;
       const inputElements = container.querySelectorAll('[data-entry-key]');
-      
+
       for (const input of inputElements) {
         const key = input.dataset.entryKey;
         const propType = input.dataset.entryPropertyType;
@@ -270,7 +270,7 @@ var ConfigManager = (function () {
       for (const container of scriptContainers) {
         const scriptId = container.dataset.scriptId;
         const inputElements = container.querySelectorAll('[data-entry-key]');
-        
+
         for (const input of inputElements) {
           const key = input.dataset.entryKey;
           const propType = input.dataset.entryPropertyType;
@@ -377,11 +377,24 @@ var ConfigManager = (function () {
 
     // Auto focus on tab if link is of the format "https://derpibooru.org/settings?active_tab=userscript"
     try {
-      if (getQueryVariable('active_tab') !== undefined) {
-        let tab = document.querySelector(`[data-click-tab=${getQueryVariable('active_tab')}]`);
-        if (tab) tab.click();
+      let activeTabId = getQueryVariable('active_tab');
+      if (activeTabId !== undefined) {
+        let activeTab = settingTable.querySelector(`[data-click-tab=${activeTabId}]`);
+        let activeTabContent = settingTable.querySelector(`[data-tab=${activeTabId}]`);
+        let visibleTab = settingTable.querySelector('.selected[data-click-tab]');
+        let visibleTabContent = settingTable.querySelector('[data-tab]:not(.hidden)');
+
+        if ([activeTab, activeTabContent, visibleTab, visibleTabContent].some(ele => ele === null)) {
+          throw 'Missing tab element';
+        }
+
+        visibleTab.classList.remove('selected');
+        visibleTabContent.classList.add('hidden');
+        activeTab.classList.add('selected');
+        activeTabContent.classList.remove('hidden');
       }
     } catch (e) {
+      console.log(e);
     }
     return ele;
   }
