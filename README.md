@@ -48,8 +48,11 @@ If your script only runs on specific pages of Derpibooru, remember to add the fo
 // @match https://derpibooru.org/settings
 // @match https://trixiebooru.org/settings
 ````
-#### For real-life usage examples, consult the following scripts:
+#### For real-life usage examples, take a look at:
 [Derpibooru WebM Volume Toggle](https://derpibooru.org/forums/meta/topics/userscript-derpibooru-webm-volume-toggle-106)
+
+[Derpibooru Comment Enhancements](https://derpibooru.org/meta/userscript-comment-link-preview)
+
 ## `ConfigObject`
 A `ConfigObject` is returned by calls to `ConfigManager` or `ConfigObject.addFieldset`. It is used to add/read/change/remove user setting entries managed by Derpi4U.
 ### `ConfigObject.pageElement`
