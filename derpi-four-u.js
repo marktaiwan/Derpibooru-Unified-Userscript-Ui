@@ -116,36 +116,6 @@ var ConfigManager = (function () {
     return ele;
   }
 
-  /**
-   *  Modified from
-   *  https://gist.github.com/pc035860/ccb58a02f5085db0c97d
-   */
-  function versionCompare(v1, v2) {
-    let v1parts = v1.split('.');
-    let v2parts = v2.split('.');
-
-    function isValidPart(x) {
-      return (/^\d+$/).test(x);
-    }
-
-    if (!v1parts.every(isValidPart) || !v2parts.every(isValidPart)) {
-      return NaN;
-    }
-
-    while (v1parts.length < v2parts.length) v1parts.push('0');
-    while (v2parts.length < v1parts.length) v2parts.push('0');
-
-    v1parts = v1parts.map(Number);
-    v2parts = v2parts.map(Number);
-
-    for (var i = 0; i < v1parts.length; ++i) {
-      if (v1parts[i] > v2parts[i]) return 1;
-      if (v1parts[i] < v2parts[i]) return -1;
-    }
-
-    return 0;
-  }
-
   function getQueryVariable(key) {
     let i;
     const array = window.location.search.substring(1).split('&');
@@ -210,23 +180,6 @@ var ConfigManager = (function () {
   function retrieveSettings(scriptId, key) {
     const storage = getStorage();
     return storage[scriptId][key];
-  }
-
-  function injectCSS(overwriteFlag) {
-    const overwrite = overwriteFlag || false;
-    const ele = document.querySelector(`#${LIBRARY_ID}--stylesheet`);
-    if (ele !== null && !overwrite) {
-      return;
-    }
-    if (overwrite && ele !== null && ele.innerHTML !== CSS) {
-      ele.remove();
-    }
-    // append <style> to <head>
-    document.head.appendChild(composeElement({
-      tag: 'style',
-      attributes: {id: `${LIBRARY_ID}--stylesheet`},
-      html: CSS
-    }));
   }
 
   /**
@@ -328,14 +281,13 @@ var ConfigManager = (function () {
     if (!SETTINGS_PAGE) {
       return;
     }
+
     if (userscriptTabContent !== null) {
-      if (versionCompare(VERSION, userscriptTabContent.dataset.version) > 0) {
-        injectCSS(true);  // UI initialized by outdated library, overwrite existing CSS
-      }
       return;
     }
+
     let ele;
-    injectCSS();
+    GM_addStyle(CSS);
 
     // Create tab
     ele = composeElement({
