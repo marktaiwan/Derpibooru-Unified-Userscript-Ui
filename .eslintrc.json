@@ -1,0 +1,130 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "greasemonkey": true
+    },
+    "globals": {
+        "GM": true,
+        "GM_addStyle": true,
+        "GM_addValueChangeListener": true,
+        "GM_deleteValue": true,
+        "GM_download": true,
+        "GM_getResourceText": true,
+        "GM_getResourceURL": true,
+        "GM_getTab": true,
+        "GM_getTabs": true,
+        "GM_getValue": true,
+        "GM_info": true,
+        "GM_listValues": true,
+        "GM_log": true,
+        "GM_notification": true,
+        "GM_openInTab": true,
+        "GM_registerMenuCommand": true,
+        "GM_removeValueChangeListener": true,
+        "GM_saveTab": true,
+        "GM_setClipboard": true,
+        "GM_setTab": true,
+        "GM_setValue": true,
+        "GM_unregisterMenuCommand": true,
+        "GM_xmlhttpRequest": true,
+        "TM_info": true,
+        "uneval": true,
+        "unsafeWindow": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "ecmaFeatures": {
+            "globalReturn": true
+        }
+    },
+    "rules": {
+        "arrow-spacing": [
+            1,
+            {
+                "after": true,
+                "before": true
+            }
+        ],
+        "block-scoped-var": 2,
+        "eol-last": 2,
+        "key-spacing": [
+            2,
+            {
+                "afterColon": true,
+                "mode": "minimum"
+            }
+        ],
+        "lines-around-comment": [
+            1,
+            {
+                "beforeBlockComment": true,
+                "beforeLineComment": false
+            }
+        ],
+        "no-debugger": 1,
+        "no-console": 0,
+        "no-extra-semi": 2,
+        "no-irregular-whitespace": 2,
+        "no-label-var": 1,
+        "no-mixed-spaces-and-tabs": 2,
+        "no-multi-spaces": [
+            1,
+            {
+                "ignoreEOLComments": true
+            }
+        ],
+        "no-redeclare": [
+            2,
+            {
+                "builtinGlobals": true
+            }
+        ],
+        "no-self-compare": 2,
+        "no-sparse-arrays": 1,
+        "no-trailing-spaces": 2,
+        "no-undef": 1,
+        "no-unreachable": 2,
+        "no-unused-vars": 1,
+        "prefer-const": 1,
+        "prefer-spread": 1,
+        "quotes": [
+            2,
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        "semi": [
+            1,
+            "always"
+        ],
+        "semi-spacing": [
+            1,
+            {
+                "after": true
+            }
+        ],
+        "space-infix-ops": 1,
+        "space-before-function-paren": [
+            2,
+            {
+                "anonymous": "always",
+                "named": "never",
+                "asyncArrow": "always"
+            }
+        ],
+        "spaced-comment": [
+            1,
+            "always",
+            {}
+        ],
+        "valid-typeof": 1,
+        "wrap-iife": [
+            1,
+            "inside"
+        ],
+        "wrap-regex": 1
+    }
+}

@@ -23,6 +23,8 @@
 // This error occurs when script is executed inside an iframe, such as when the userscript didn't include the @noframes imperative.
 if (window.self !== window.top) return;  // Exit when inside iframe
 
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ConfigManager" }] */
+
 var ConfigManager = (function () {
   'use strict';
 
@@ -81,6 +83,7 @@ var ConfigManager = (function () {
    * createElement() already taken, I dedicate this function name to Thesaurus.com
    */
   function composeElement(obj) {
+
     /** https://gist.github.com/youssman/745578062609e8acac9f
      * camelToDash('userId') => "user-id"
      */
@@ -112,6 +115,7 @@ var ConfigManager = (function () {
 
     return ele;
   }
+
   /**
    *  Modified from
    *  https://gist.github.com/pc035860/ccb58a02f5085db0c97d
@@ -128,8 +132,8 @@ var ConfigManager = (function () {
       return NaN;
     }
 
-    while (v1parts.length < v2parts.length) v1parts.push("0");
-    while (v2parts.length < v1parts.length) v2parts.push("0");
+    while (v1parts.length < v2parts.length) v1parts.push('0');
+    while (v2parts.length < v1parts.length) v2parts.push('0');
 
     v1parts = v1parts.map(Number);
     v2parts = v2parts.map(Number);
@@ -144,14 +148,14 @@ var ConfigManager = (function () {
 
   function getQueryVariable(key) {
     let i;
-    let array = window.location.search.substring(1).split('&');
+    const array = window.location.search.substring(1).split('&');
 
     for (i = 0; i < array.length; i++) {
       if (key == array[i].split('=')[0]) return array[i].split('=')[1];
     }
   }
 
-  //==!Util Functions==
+  // ==!Util Functions==
 
 
   function validateIdentifier(string) {
@@ -163,7 +167,7 @@ var ConfigManager = (function () {
   // function takes in an array of required property names
   // and throws exception if any of them is undefined in obj
   function validateParameters(requiredParams, obj) {
-    let array = [];
+    const array = [];
 
     for (const param of requiredParams) {
       if (obj[param] === undefined) {
@@ -210,7 +214,7 @@ var ConfigManager = (function () {
 
   function injectCSS(overwriteFlag) {
     const overwrite = overwriteFlag || false;
-    let ele = document.querySelector(`#${LIBRARY_ID}--stylesheet`);
+    const ele = document.querySelector(`#${LIBRARY_ID}--stylesheet`);
     if (ele !== null && !overwrite) {
       return;
     }
@@ -262,7 +266,7 @@ var ConfigManager = (function () {
   }
 
   function bindSaveHandler(saveBtn) {
-    saveBtn.addEventListener('click', function (e) {
+    saveBtn.addEventListener('click', function () {
       const storage = getStorage();
       const userscriptTabContent = document.querySelector(`[data-tab="${SETTINGS_TAB_ID}"]`);
       const scriptContainers = userscriptTabContent.querySelectorAll('[data-script-id]');
@@ -377,12 +381,12 @@ var ConfigManager = (function () {
 
     // Auto focus on tab if link is of the format "https://derpibooru.org/settings?active_tab=userscript"
     try {
-      let activeTabId = getQueryVariable('active_tab');
+      const activeTabId = getQueryVariable('active_tab');
       if (activeTabId !== undefined) {
-        let activeTab = settingTable.querySelector(`[data-click-tab=${activeTabId}]`);
-        let activeTabContent = settingTable.querySelector(`[data-tab=${activeTabId}]`);
-        let visibleTab = settingTable.querySelector('.selected[data-click-tab]');
-        let visibleTabContent = settingTable.querySelector('[data-tab]:not(.hidden)');
+        const activeTab = settingTable.querySelector(`[data-click-tab=${activeTabId}]`);
+        const activeTabContent = settingTable.querySelector(`[data-tab=${activeTabId}]`);
+        const visibleTab = settingTable.querySelector('.selected[data-click-tab]');
+        const visibleTabContent = settingTable.querySelector('[data-tab]:not(.hidden)');
 
         if ([activeTab, activeTabContent, visibleTab, visibleTabContent].some(ele => ele === null)) {
           throw 'Missing tab element';
@@ -448,7 +452,7 @@ var ConfigManager = (function () {
   function appendDescription(node, string) {
     if (string === undefined) return;
 
-    let ele = composeElement({
+    const ele = composeElement({
       tag: 'div',
       attributes: {class: 'fieldlabel'},
       children: [{
@@ -521,7 +525,7 @@ var ConfigManager = (function () {
       // prefix the element id and classes to minimize chance of conflict
       const namespacedKey = `${scriptId}__${entryKey.replace(/\s/g,'')}`;
       // entry container is common for all input types
-      let ele = composeElement({
+      const ele = composeElement({
         tag: 'div',
         attributes: {class: `field ${LIBRARY_ID}__entry`, dataEntryId: namespacedKey}
       });
@@ -592,7 +596,7 @@ var ConfigManager = (function () {
             text: entryTitle
           }));
           // Append radio buttons
-          let buttonSet = ele.appendChild(composeElement({
+          const buttonSet = ele.appendChild(composeElement({
             tag: 'span',
             attributes: {
               class: `${LIBRARY_ID}__radio-button-container`,
@@ -601,6 +605,7 @@ var ConfigManager = (function () {
               dataEntryPropertyType: 'value'
             }
           }));
+
           /**
            *  Radio buttons behaves like checkboxes except that only one can be
            *  selected at a time, we make them act more like dropdown lists by assigning
@@ -608,7 +613,7 @@ var ConfigManager = (function () {
            */
           Object.defineProperty(buttonSet, 'value', {
             get: function () {
-              return this.querySelector(`input:checked`).value;
+              return this.querySelector('input:checked').value;
             },
             set: function (val) {
               this.querySelector(`input[value="${val}"]`).checked = true;
@@ -616,9 +621,9 @@ var ConfigManager = (function () {
           });
           let n = 1;
           for (const selection of selections) {
-            let selectionId = namespacedKey + '-' + n;  // Generate unique ID for each radio button
+            const selectionId = namespacedKey + '-' + n;  // Generate unique ID for each radio button
             n = n + 1;
-            let span = composeElement({
+            const span = composeElement({
               tag: 'span',
               children: [{
                 tag: 'input',
@@ -645,7 +650,7 @@ var ConfigManager = (function () {
             text: entryTitle
           }));
           // Append dropdown
-          let selectElement = ele.appendChild(composeElement({
+          const selectElement = ele.appendChild(composeElement({
             tag: 'select',
             attributes: {
               class: `input ${LIBRARY_ID}__dropdown-list`,
@@ -669,8 +674,8 @@ var ConfigManager = (function () {
         }
       }
       appendDescription(ele, description);
-      let inputElement = ele.querySelector('[data-default-value]');
-      let propType = inputElement.dataset.entryPropertyType;
+      const inputElement = ele.querySelector('[data-default-value]');
+      const propType = inputElement.dataset.entryPropertyType;
       inputElement[propType] = storedValue;
 
       return SETTINGS_PAGE ? this.pageElement.appendChild(ele) : ele;
