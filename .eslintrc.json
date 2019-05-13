@@ -86,7 +86,12 @@
         "no-trailing-spaces": 2,
         "no-undef": 1,
         "no-unreachable": 2,
-        "no-unused-vars": 1,
+        "no-unused-vars": [
+            1,
+            {
+                "varsIgnorePattern": "ConfigManager"
+            }
+        ],
         "prefer-const": 1,
         "prefer-spread": 1,
         "quotes": [

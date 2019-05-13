@@ -23,8 +23,6 @@
 // This error occurs when script is executed inside an iframe, such as when the userscript didn't include the @noframes imperative.
 if (window.self !== window.top) return;  // Exit when inside iframe
 
-/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "ConfigManager" }] */
-
 var ConfigManager = (function () {
   'use strict';
 
