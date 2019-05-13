@@ -7,7 +7,7 @@
 // @name          Derpibooru Unified Userscript UI Utility
 // @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
 // @license       MIT
-// @version       1.0.2
+// @version       1.0.3
 
 // ==/UserScript==
 
@@ -28,7 +28,7 @@ if (window.self !== window.top) return;  // Exit when inside iframe
 var ConfigManager = (function () {
   'use strict';
 
-  const VERSION = '1.0.2';
+  const VERSION = '1.0.3';
   const LIBRARY_NAME = 'Derpibooru Unified Userscript UI Utility';
   const LIBRARY_ID = 'derpi_four_u';
   const SETTINGS_PAGE = (document.querySelector('#js-setting-table') !== null);
