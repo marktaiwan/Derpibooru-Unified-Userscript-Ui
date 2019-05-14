@@ -422,12 +422,6 @@ var ConfigManager = (function () {
 
   function ConfigManager(scriptName, scriptId, scriptDescription) {
     validateIdentifier(scriptId);
-    // need to check for scriptId collision before instantiating a new ConfigObject
-    if (window[LIBRARY_ID].registered_scripts.includes(scriptId)) {
-      throw Error(`Script id "${scriptId}" is already in use`);
-    } else {
-      window[LIBRARY_ID].registered_scripts.push(scriptId);
-    }
 
     const config = new ConfigObject(scriptName, scriptId, scriptId, null, scriptDescription, appendScriptContainer);
     const storage = getStorage();
@@ -656,8 +650,5 @@ var ConfigManager = (function () {
 
   initStorage();
   initSettingsTab();
-  ConfigManager.version = VERSION;
-  window[LIBRARY_ID] = window[LIBRARY_ID] || {};  // we need to share some information with various instances of UUUU
-  window[LIBRARY_ID].registered_scripts = window[LIBRARY_ID].registered_scripts || [LIBRARY_ID];  // remember to reserve an id for own future use
   return ConfigManager;
 })();
