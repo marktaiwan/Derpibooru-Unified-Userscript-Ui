@@ -26,7 +26,6 @@ if (window.self !== window.top) return;  // Exit when inside iframe
 var ConfigManager = (function () {
   'use strict';
 
-  const VERSION = '1.0.3';
   const LIBRARY_NAME = 'Derpibooru Unified Userscript UI Utility';
   const LIBRARY_ID = 'derpi_four_u';
   const SETTINGS_PAGE = (document.querySelector('#js-setting-table') !== null);
@@ -273,18 +272,14 @@ var ConfigManager = (function () {
   }
 
   function initSettingsTab() {
-    const settingTable = document.querySelector('#js-setting-table');
     const userscriptTabContent = document.querySelector(`[data-tab="${SETTINGS_TAB_ID}"]`);
-
-    if (!SETTINGS_PAGE) {
-      return;
-    }
-
-    if (userscriptTabContent !== null) {
-      return;
-    }
-
+    const settingTable = document.querySelector('#js-setting-table');
     let ele;
+
+    if (!SETTINGS_PAGE || userscriptTabContent !== null) {
+      return;
+    }
+
     GM_addStyle(CSS);
 
     // Create tab
@@ -298,7 +293,7 @@ var ConfigManager = (function () {
     // Create tab content
     ele = composeElement({
       tag: 'div',
-      attributes: {class: 'block__tab hidden', dataTab: SETTINGS_TAB_ID, dataVersion: VERSION},
+      attributes: {class: 'block__tab hidden', dataTab: SETTINGS_TAB_ID},
       children: [{
         tag: 'div',
         attributes: {class: 'block block--fixed block--primary flex'},
