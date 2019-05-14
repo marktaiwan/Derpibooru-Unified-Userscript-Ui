@@ -12,7 +12,10 @@ Settings for the various userscripts that implements this library will be placed
 First, add Derpi4U to your userscript with
 ````
 // @require  https://raw.githubusercontent.com/marktaiwan/Derpibooru-Unified-Userscript-Ui/master/derpi-four-u.js
+// @grant    GM_addStyle
 ````
+The permission `GM_addStyle` is needed for styling the settings page in a way that bypasses Derpibooru's Content Security Policy (CSP) directive that prohibits the `<style>` tags on Chrome. Unfortunately, this method currently does not work with Firefox, and the installation of [one additional extension](https://derpibooru.org/meta/userscripts-customization/post/4354787#post_4354787) required by the user.
+
 Now register your userscript with `ConfigManager`.
 ```` javascript
 var config = ConfigManager(
@@ -105,7 +108,7 @@ Returns the HTML element of the entry container, regardless if it's inserted or 
 
 #### Return value
 `registerSetting()` returns a `<div>` element that is to be inserted when on the settings page.
-````HTML
+```` HTML
 <div>
     <label>Entry Title</label>
     <input type="number" data-entry-key="key1">
@@ -115,7 +118,7 @@ Returns the HTML element of the entry container, regardless if it's inserted or 
 </div>
 ````
 This allows you to apply additional styling and restriction to the display element:
-````javascript
+```` javascript
 var input = config.registerSetting(/*....*/).querySelector('input');
 input.setAttribute('min', '0');
 input.setAttribute('max', '100');
