@@ -21,6 +21,13 @@
         ],
         "block-scoped-var": 2,
         "eol-last": 2,
+        "keyword-spacing": [
+            "error",
+            {
+                "before": true,
+                "after": true
+            }
+        ],
         "key-spacing": [
             2,
             {

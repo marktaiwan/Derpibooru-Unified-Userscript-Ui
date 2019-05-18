@@ -14,7 +14,9 @@ First, add Derpi4U to your userscript with
 // @require  https://raw.githubusercontent.com/marktaiwan/Derpibooru-Unified-Userscript-Ui/master/derpi-four-u.js
 // @grant    GM_addStyle
 ````
-The permission `GM_addStyle` is needed for styling the settings page in a way that bypasses Derpibooru's Content Security Policy (CSP) directive that prohibits the `<style>` tags on Chrome. Unfortunately, this method currently does not work with Firefox, and the installation of [one additional extension](https://derpibooru.org/meta/userscripts-customization/post/4354787#post_4354787) required by the user.
+The permission `GM_addStyle` is needed for styling the settings page in a way that bypasses Derpibooru's Content Security Policy (CSP) directive that prohibits the `<style>` tags on Chrome.
+
+For Firefox users, if you only need your script to work on Violentmonkey and does not need access to unsandboxed `window` object, you can use the injection mode `@inject-into content`. Otherwise, the installation of [one additional extension](https://derpibooru.org/meta/userscripts-customization/post/4354787#post_4354787) required.
 
 Now register your userscript with `ConfigManager`.
 ```` javascript
