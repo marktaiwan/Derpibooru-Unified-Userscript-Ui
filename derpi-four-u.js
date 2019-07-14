@@ -7,7 +7,7 @@
 // @name          Derpibooru Unified Userscript UI Utility
 // @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
 // @license       MIT
-// @version       1.0.3
+// @version       1.0.4
 
 // ==/UserScript==
 
@@ -318,7 +318,7 @@ var ConfigManager = (function () {
       }]
     });
 
-    bindSaveHandler(document.querySelector('[action="/update_settings"] input[name="commit"]'));
+    bindSaveHandler(document.querySelector('[action="/settings"] input[name="commit"]'));
     bindResetHandler(ele.querySelector(`.${LIBRARY_ID}--reset_button>a`));
 
     // Insert the tab element after the last existing tab, but before the 'Save settings' button
