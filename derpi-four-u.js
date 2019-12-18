@@ -7,7 +7,7 @@
 // @name          Derpibooru Unified Userscript UI Utility
 // @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
 // @license       MIT
-// @version       1.0.4
+// @version       1.0.5
 
 // ==/UserScript==
 
@@ -274,24 +274,28 @@ var ConfigManager = (function () {
   function initSettingsTab() {
     const userscriptTabContent = document.querySelector(`[data-tab="${SETTINGS_TAB_ID}"]`);
     const settingTable = document.querySelector('#js-setting-table');
-    let ele;
 
     if (!SETTINGS_PAGE || userscriptTabContent !== null) {
       return;
     }
 
-    GM_addStyle(CSS);
+    if (!document.getElementById(`${LIBRARY_ID}-style`)) {
+      const styleElement = document.createElement('style');
+      styleElement.setAttribute('type', 'text/css');
+      styleElement.id = `${LIBRARY_ID}-style`;
+      styleElement.innerHTML = CSS;
+      document.body.insertAdjacentElement('afterend', styleElement);
+    }
 
     // Create tab
-    ele = composeElement({
+    const tabHeader = composeElement({
       tag: 'a',
       attributes: {dataClickTab: SETTINGS_TAB_ID, href: '#'},
       text: 'Userscript'
     });
-    settingTable.querySelector('.block__header--js-tabbed').appendChild(ele);
 
     // Create tab content
-    ele = composeElement({
+    const tabContent = composeElement({
       tag: 'div',
       attributes: {class: 'block__tab hidden', dataTab: SETTINGS_TAB_ID},
       children: [{
@@ -318,11 +322,24 @@ var ConfigManager = (function () {
       }]
     });
 
-    bindSaveHandler(document.querySelector('[action="/settings"] input[name="commit"]'));
-    bindResetHandler(ele.querySelector(`.${LIBRARY_ID}--reset_button>a`));
+    try {
+      // booru-on-rails
+      bindSaveHandler(document.querySelector('form[action="/settings"] input[name="commit"]'));
+      // Philomena
+      // bindSaveHandler(document.querySelector('form[action="/settings"] button[type="submit"]'));
 
-    // Insert the tab element after the last existing tab, but before the 'Save settings' button
-    settingTable.querySelector('.block__tab:last-of-type').insertAdjacentElement('afterend', ele);
+      bindResetHandler(tabContent.querySelector(`.${LIBRARY_ID}--reset_button>a`));
+
+      // Insert tab header and content
+      settingTable.querySelector('.block__header--js-tabbed').appendChild(tabHeader);
+      settingTable.querySelector('.block__tab:last-of-type').insertAdjacentElement('afterend', tabContent);
+    } catch (e) {
+      // Reset page in case of errors
+      tabHeader.remove();
+      tabContent.remove();
+      console.log(e);
+      return;
+    }
 
     // Auto focus on tab if link is of the format "https://derpibooru.org/settings?active_tab=userscript"
     try {
@@ -345,7 +362,6 @@ var ConfigManager = (function () {
     } catch (e) {
       console.log(e);
     }
-    return ele;
   }
 
   function appendScriptContainer(name, id, description) {
