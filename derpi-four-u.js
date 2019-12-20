@@ -7,7 +7,7 @@
 // @name          Derpibooru Unified Userscript UI Utility
 // @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
 // @license       MIT
-// @version       1.0.5
+// @version       1.2.0
 
 // ==/UserScript==
 
@@ -323,10 +323,7 @@ var ConfigManager = (function () {
     });
 
     try {
-      // booru-on-rails
-      bindSaveHandler(document.querySelector('form[action="/settings"] input[name="commit"]'));
-      // Philomena
-      // bindSaveHandler(document.querySelector('form[action="/settings"] button[type="submit"]'));
+      bindSaveHandler(document.querySelector('form[action="/settings"] button[type="submit"]'));
 
       bindResetHandler(tabContent.querySelector(`.${LIBRARY_ID}--reset_button>a`));
 
