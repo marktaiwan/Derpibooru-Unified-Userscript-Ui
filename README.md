@@ -4,7 +4,7 @@
 
 It abstracts away the hassle of dealing with HTML elements, event listeners, and localStorage when all you want to do is add one or two options to your script for your users to choose from.
 
-Settings for the various userscripts that implements this library will be placed in the [Content Settings](https://derpibooru.org/settings?active_tab=userscript) page of Derpibooru. This provides a single, logical, out-of-the-way location for users to find the settings for their installed scripts.
+Settings for the various userscripts that implements this library will be placed in the [Content Settings](https://derpibooru.org/settings/edit?active_tab=userscript) page of Derpibooru. This provides a single, logical, out-of-the-way location for users to find the settings for their installed scripts.
 
 [![Screenshot](../master/Screenshots/settings-ui-thumbnail.jpeg)](https://raw.githubusercontent.com/marktaiwan/Derpibooru-Unified-Userscript-Ui/master/Screenshots/settings-ui.png)
 
