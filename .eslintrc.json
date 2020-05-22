@@ -21,6 +21,16 @@
         ],
         "block-scoped-var": 2,
         "eol-last": 2,
+        "indent": [
+            "error",
+            2,
+            {
+                "SwitchCase": 1,
+                "VariableDeclarator": "first",
+                "ignoreComments": true,
+                "MemberExpression": "off"
+            }
+        ],
         "keyword-spacing": [
             "error",
             {

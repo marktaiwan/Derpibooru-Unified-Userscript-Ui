@@ -7,7 +7,7 @@
 // @name          Derpibooru Unified Userscript UI Utility
 // @description   A simple userscript library for script authors to implement user-changeable settings on Derpibooru
 // @license       MIT
-// @version       1.2.1
+// @version       1.2.2
 
 // ==/UserScript==
 
@@ -60,7 +60,7 @@ var ConfigManager = (function () {
 .${LIBRARY_ID}__section__description {
   padding-bottom: 8px;
 }
-.${LIBRARY_ID}__entry>input.input, .${LIBRARY_ID}__entry>select.input {
+.${LIBRARY_ID}__entry>input.input {
   padding: 2px 6px;
 }
 .${LIBRARY_ID}__entry input {
