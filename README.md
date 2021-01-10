@@ -48,8 +48,8 @@ var a = config.getEntry('key_a');
 #### @match
 If your script only runs on specific pages of Derpibooru, remember to add the following rules to your metadata block:
 ````
-// @match https://derpibooru.org/settings
-// @match https://trixiebooru.org/settings
+// @match https://derpibooru.org/settings/edit
+// @match https://trixiebooru.org/settings/edit
 ````
 #### For real-life usage examples, take a look at:
 [Derpibooru WebM Volume Toggle](https://derpibooru.org/forums/meta/topics/userscript-derpibooru-webm-volume-toggle-106)
